@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const Asteroid = require('./models/Asteroid')
+
 // Axios allows us to make HTTP requests from our app
 const axios = require("axios").default;
 
@@ -31,6 +33,13 @@ router.get("/images", (req, res) => {
     .catch((error) => {
       console.log(error)
     })
+})
+
+router.post('/asteroids', async (req, res) => {
+  const newAsteroid = new Asteroid()
+  newAsteroid.title = 'new title'
+  const createdAsteroid = await newAsteroid.save();
+  res.json(createdAsteroid)
 })
 
 module.exports = router;
