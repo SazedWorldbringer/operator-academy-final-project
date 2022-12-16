@@ -4,17 +4,26 @@ const app = express();
 const routes = require("./src/routes");
 // mongoose to connect to the database
 const mongoose = require('mongoose');
-
-const db = mongoose.connect(
-  `mongodb+srv://cutest-asteroid:${process.env.MONGODB_PASSWORD}@cluster0.fegxgy7.mongodb.net/?retryWrites=true&w=majority`
-);
+const cors = require('cors')
 
 // Configure the express application
 const port = process.env.PORT || 3000;
+app.use((res, req, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next()
+})
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Your Express application is running on port ${port}`);
-});
+mongoose
+  .connect(
+    `mongodb+srv://cutest-asteroid:uvuXBVnXeQ4iE0vS@cluster0.fegxgy7.mongodb.net/?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    // Start the server
+    app.listen(port, () => {
+      console.log(`Your Express application is running on port ${port}`);
+    });
+  });
