@@ -2,8 +2,10 @@
 const express = require("express");
 const app = express();
 const routes = require("./src/routes");
+
 // mongoose to connect to the database
 const mongoose = require('mongoose');
+
 const cors = require('cors')
 
 // Configure the express application
