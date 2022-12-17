@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const routes = require("./src/routes");
 
+require('dotenv').config()
+
 // mongoose to connect to the database
 const mongoose = require('mongoose');
 
@@ -20,10 +22,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
 mongoose.set('strictQuery', false)
 
-mongoose.connect(
-  `mongodb+srv://cutest-asteroid:uvuXBVnXeQ4iE0vS@cluster0.fegxgy7.mongodb.net/?retryWrites=true&w=majority`
-).then(() => {
-  app.listen(port, () => {
-    console.log(`Your Express application is running on port ${port}`);
-  });
-})
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Your Express application is running on port ${port}`);
+    });
+  })
