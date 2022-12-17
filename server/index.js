@@ -16,14 +16,12 @@ app.use((res, req, next) => {
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
+mongoose.set('strictQuery', false)
 
-mongoose
-  .connect(
-    `mongodb+srv://cutest-asteroid:uvuXBVnXeQ4iE0vS@cluster0.fegxgy7.mongodb.net/?retryWrites=true&w=majority`
-  )
-  .then(() => {
-    // Start the server
-    app.listen(port, () => {
-      console.log(`Your Express application is running on port ${port}`);
-    });
+mongoose.connect(
+  `mongodb+srv://cutest-asteroid:uvuXBVnXeQ4iE0vS@cluster0.fegxgy7.mongodb.net/?retryWrites=true&w=majority`
+).then(() => {
+  app.listen(port, () => {
+    console.log(`Your Express application is running on port ${port}`);
   });
+})
