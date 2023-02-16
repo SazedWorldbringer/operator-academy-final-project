@@ -7,25 +7,19 @@ import Card from './Card'
 import { getOptionsForVote } from '../utils/getRandomThing'
 
 const CardsContainer = () => {
-  let [asteroids, setAsteroids] = useState([])
+  let [cat, setCat] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:3000/asteroids')
+    axios.get('http://localhost:3000/cats')
       .then(res => {
-        setAsteroids(getOptionsForVote(res.data))
+        setCat(res.data)
       })
       .catch(err => console.log("Error", err))
   }, []);
 
-  console.log(asteroids)
-
   return (
     <div className="h-auto max-w-max my-3 mx-5 md:mx-auto flex flex-col md:flex-row justify-evenly items-center gap-10">
-      {asteroids.map((asteroid) => {
-        return (
-          <Card key={asteroid.nasa_id} title={asteroid.title} href={asteroid.href} />
-        )
-      })}
+      <Card key={cat.id} href={cat.href} />
     </div>
   )
 }
